@@ -1,0 +1,39 @@
+{% extends "model-page.html" %}
+
+{% block content %}
+    <h1 class="text-center"> Cadastrar um Livro</h1>
+
+    <form enctype="multipart/form-data" action="submit" method="POST">{% csrf_token %}
+        <input type="number" class="form-control" name="livro_id" value="{{livro.id}}" hidden>
+        <div class="container">
+            <div class="form-group">
+                <label for="titulo">Titulo</label>
+                <input class="form-control" name="titulo" type="text" value="{{livro.Titulo}}">
+            </div>
+            <div class="form-group">
+                <label for="categoria">Categoria</label>
+                <input class="form-control" name="categoria" type="text" value="{{livro.Categoria}}">
+            </div>
+            <div class="form-group">
+                <label for="resumo">Resumo</label>
+                <textarea class="form-control" rows="5" name="resumo"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="valor"> Preço </label>
+                <input class="form-control" name="valor" type="text" value="{{livro.Valor}}">
+            </div>
+            <div class="form-group">
+                <a href="/media/{{livro.Image}}" target="_blank">foto atual</a>
+                <input type="file" class="form-control-file border" name="image" accept="image/*">
+            </div>
+            <button  type="submit" class="btn btn-primary">
+                {% if livro %}
+                    alterar
+                {% else %}
+                    Cadastrar
+                {% endif %}
+            </button>
+        </div>
+
+    </form>
+{% endblock %}

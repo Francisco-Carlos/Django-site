@@ -1,0 +1,63 @@
+{% extends "model-page.html" %}
+
+{% block content %}
+
+<h1 class="text-center"> Detalhes do livro </h1>
+
+<div class="modal fade" id="modal_compra">
+    <div class="modal-dialog modal-dialogcentered">
+        <div class="modal-content">
+            <div class="modal-hearder">
+                <h4><strong>Obrigado pela compra</strong></h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id=modal_confirm>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="model-header">
+                <h4 class="modal-title">tem cereteza que eur excluir</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body text-right">
+                <a href="/livros/delete/{{livros.id}}">
+                    <button type="button" class="btn btn-danger">excluir</button>
+                </a>    
+                <button type="button" class="bnt btn-success" data-dismiss="modal">cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class=row>
+        <div class="col-sm-4">
+            <div style="border-color: black; border-style: double; width: 356px; heigth:300px">
+                <img src="{{ livros.Image.url }}" width="350" height="263">
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <p><b>Titulo: </b>{{livros.Titulo}}</p>
+            <p><b>Categoria: </b>{{livros.Categoria}}</p>
+            <p><b>Resumo: </b>{{livros.Resumo}}</p>
+            <p><b>Valor R$: </b>{{livros.Valor}}</p>
+            {% if request.user != livros.User %}
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal_compra"> comprar </button>
+                <a href="/">
+                    <button type="button" class="btn btn-danger"> voltar</button>
+                </a>
+            {% endif %}
+            {% if request.user == livros.User  %}
+                <a href="/livros/cadastrar/?id={{livros.id}}">
+                    <button type="button" class="btn btn-primary"> alterar</button>
+                </a>
+                <button type="button" class="btn btn-danger" data-toggle="modal"
+                    data-target="#modal_confirm"> excluir</button>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
